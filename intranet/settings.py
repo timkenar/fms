@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders', 'fms',
+    'corsheaders', 'auth_app','fms', 
 ]
 
 MIDDLEWARE = [
@@ -64,19 +64,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'intranet.wsgi.application'
 
 #Authentication
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-}
 
 
 #I have added CORS to allow React frontend to communicate with your Django backend.
+
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
