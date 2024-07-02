@@ -6,6 +6,8 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ['id', 'user', 'title', 'description', 'file_path', 'date_created', 'date_updated']
 
+
+
 #     def create(self, validated_data):
 #         password = validated_data.pop('password')
 #         user = User(**validated_data)

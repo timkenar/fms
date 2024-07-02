@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders', 'auth_app','fms', 
+    'corsheaders', 'auth_app','fms', 'share_app'
 ]
 
 MIDDLEWARE = [

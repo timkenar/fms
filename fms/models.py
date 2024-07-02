@@ -6,6 +6,7 @@ from cryptography.fernet import Fernet
 from django.conf import settings
 import base64, os
 from django.dispatch import receiver
+# from datetime import timedelta
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
