@@ -26,8 +26,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken',
-    'corsheaders', 'auth_app','fms', 'share_app'
+    'rest_framework.authtoken', 
+    'corsheaders', 
+    'auth_app',
+    'fms', 
+    'share_app', 
+    'notify_app',
+    'django_filters',
+    'render_app',
 ]
 
 MIDDLEWARE = [
@@ -68,18 +74,30 @@ WSGI_APPLICATION = 'intranet.wsgi.application'
 
 #I have added CORS to allow React frontend to communicate with your Django backend.
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
+    'http://localhost:5173',
 ]
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'intra',
+        'USER': 'timo',
+        'PASSWORD': 'kener',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 

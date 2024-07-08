@@ -12,11 +12,20 @@ To upload a file, you will fill the form using the posts url - http://127.0.0.1:
 To access the Users List- http://127.0.0.1:8000/api/users/ 
 To access the user authentication and authorization,
 Admin page- http://127.0.0.1:8000/admin/ 
-New User
+
+Sign Up the New User
+
 Set the request type to POST.
 Register:  http://127.0.0.1:8000//api/auth/register/ 
 Login: http://127.0.0.1:8000//api/auth/login/
 Logout: http://127.0.0.1:8000//api/auth/logout/
+
+Notifications
+notification api: http://127.0.0.1:8000/api/notify/notifications/ 
+
+Render Table
+This api allows you to create, fetch, and filter posts made by the logged-in user, and display them in a table on the frontend: 
+ http://127.0.0.1:8000/api/render/posts/ 
 
 Test the apis with postman or curl
 

@@ -5,40 +5,50 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Post
 from .serializers import PostSerializer
 
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        user = self.request.user
-        if user.is_superuser:
-            return Post.objects.all()
-        return Post.objects.filter(user=user)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    @action(detail=False, methods=['post'])
-    def save_post(self, request):
-        data = request.data
-        post_id = data.get('id')
-        if post_id:
-            post = Post.objects.get(id=post_id)
-            serializer = PostSerializer(post, data=data)
-        else:
-            serializer = PostSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'status': 'success', 'msg': 'File has been saved successfully.'}, status=status.HTTP_200_OK)
-        return Response({'status': 'failed', 'msg': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     if user.is_superuser:
+    #         return Post.objects.all()
+    #     return Post.objects.filter(user=user)
 
-    @action(detail=False, methods=['post'])
-    def delete_post(self, request):
-        post_id = request.data.get('id')
-        try:
-            post = Post.objects.get(id=post_id)
-            post.delete()
-            return Response({'status': 'success', 'msg': 'Post has been deleted successfully'}, status=status.HTTP_200_OK)
-        except Post.DoesNotExist:
-            return Response({'status': 'failed', 'msg': 'Undefined Post ID'}, status=status.HTTP_400_BAD_REQUEST)
+    # @action(detail=False, methods=['post'])
+    # def save_post(self, request):
+    #     data = request.data
+    #     post_id = data.get('id')
+    #     if post_id:
+    #         post = Post.objects.get(id=post_id)
+    #         serializer = PostSerializer(post, data=data)
+    #     else:
+    #         serializer = PostSerializer(data=data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response({'status': 'success', 'msg': 'File has been saved successfully.'}, status=status.HTTP_200_OK)
+    #     return Response({'status': 'failed', 'msg': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    # @action(detail=False, methods=['post'])
+    # def delete_post(self, request):
+    #     post_id = request.data.get('id')
+    #     try:
+    #         post = Post.objects.get(id=post_id)
+    #         post.delete()
+    #         return Response({'status': 'success', 'msg': 'Post has been deleted successfully'}, status=status.HTTP_200_OK)
+    #     except Post.DoesNotExist:
+    #         return Response({'status': 'failed', 'msg': 'Undefined Post ID'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
